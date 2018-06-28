@@ -13,10 +13,10 @@ class LoginController < ApplicationController
 
   def verify
     username = params[:username]
-    user = User.new(username: username)
+    user = User.find_or_initialize_by(username: username)
     if user.valid?
-      result = User.find_or_create_by(username: username)
-      session[:user] = result
+      user.save
+      session[:user] = user
       redirect_to '/trades/index'
     else
       flash[:msg] = "Please Fill Username."
