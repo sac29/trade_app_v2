@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Blog Home - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<%= render 'layouts/header' %>
+
+<!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-4">
+
+    </div>
+
+    <!-- Sidebar Widgets Column -->
+    <div class="col-md-4">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <!-- Search Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Login/Sign-up</h5>
+        <div class="card-body">
+          <div class="input-group">
+            <form method="post" action="login/verify">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input type="text" class="offset-md-3 form-control" name="username" placeholder="Enter User Name ..">
+            <span class="input-group-btn"><br>
+                  <button class="offset-md-7 btn btn-secondary" type="submit">Go!</button>
+                </span>
+            </form>
+            <% if flash[:msg] %>
+              <span class="text-danger"><%= flash[:msg] %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<%= render 'layouts/footer' %>
+
+<!-- Bootstrap core JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
