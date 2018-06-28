@@ -8,6 +8,10 @@ class TradesController < ApplicationController
     end
   end
 
+  def public_feed
+    @trades = Trades.all.order(action_date: :desc)
+  end
+
   def add
     if session.key?(:user)
       company = params[:company]

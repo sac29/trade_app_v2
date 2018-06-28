@@ -5,4 +5,5 @@ class Trades < ApplicationRecord
   validates :stock_price, numericality: { greater_than: 0 }
   validates :has_share, inclusion: { in: [true, false] }
   validates :action_date, presence: true
+  belongs_to :user
 end
