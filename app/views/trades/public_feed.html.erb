@@ -1,0 +1,44 @@
+<% if flash[:type] %>
+  <script>
+      // TODO: move javascript to independent file; may be application.js
+      swal("<%= flash[:title] %>","<%= flash[:msg] %>","<%= flash[:type] %>");
+  </script>
+<% end %>
+<div class="col-md-12" style="margin-top: 5%;">
+
+  <h1 class="my-4">Public Feed</h1>
+  <% @trades.each do |trade| %>
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3 class="card-title"><%= trade.user.username %></h3>
+      <div class="card my-4">
+        <h5 class="card-header"><%= trade.company_name %><span class="offset-md-9"><%= trade.action_date %></span></h5>
+        <div class="card-body">
+          <div class="input-group">
+              <span class="<%= trade.has_share ? 'text-success' : 'text-danger' %>"><%= trade.has_share ? 'Bought' : 'Sold' %>@<%= trade.stock_price %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if session[:user] %>
+    <div class="card-footer text-muted">
+      <form action="/comments/write" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <div class="row">
+          <input type="text" name="comment" class="offset-md-1 col-md-9 form-control" placeholder="Write Your Comment...">&nbsp;&nbsp;
+          <button type="submit" name="post" class="col-md-1 form-control btn-primary" value="<%= trade.id %>">write</button>
+        </div>
+      </form>
+    </div>
+    <% end %>
+    <% trade.comments.each do |comments| %>
+      <div class="card-footer text-muted border-bottom-0">
+          <div class="row">
+            <h5 class="offset-md-1 col-md-11"><%= comments.user.username %> Commented:</h5><br>
+            <p class="offset-md-1 col-md-11"><%= comments.comment %></p>
+          </div>
+      </div>
+    <% end %>
+</div>
+  <% end %>
+</div>
