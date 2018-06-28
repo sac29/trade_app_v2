@@ -1,15 +1,20 @@
 class TradesController < ApplicationController
   protect_from_forgery with: :exception
+
+  # TODO: before_actions :require_login, :without_user
+  # TODO: helper_method :current_user
+
   def index
     if session.key?(:user)
-      @my_trades = Trades.where(user_id: session[:user]['id']).order(action_date: :desc)
+      @my_trades = Trade.where(user_id: session[:user]['id']).order(action_date: :desc)
     else
       redirect_to '/'
     end
   end
 
   def public_feed
-    @trades = Trades.all.order(action_date: :desc)
+    # TODO: add pagination, using skip limit
+    @trades = Trade.all.order(action_date: :desc)
   end
 
   def add
@@ -20,7 +25,7 @@ class TradesController < ApplicationController
       trade_type = params[:trade]
       user = session[:user]['id']
       date = params[:action_date]
-      trade = Trades.new(company_name: company, stock_price: stock_price, no_of_stocks: stocks, has_share: trade_type, user_id: user, action_date: date)
+      trade = Trade.new(company_name: company, stock_price: stock_price, no_of_stocks: stocks, has_share: trade_type, user_id: user, action_date: date)
       if trade.valid?
         trade.save
         flash[:title] = "Success"
