@@ -15,11 +15,11 @@
         <input type="text" name="company" class="col-md-3 form-control" placeholder="Company Name.. e.g. Reliance" required>
         <div class="col-md-1"></div>
         <label class="col-md-2">Stock Price</label>
-        <input type="number" name="price" class="col-md-3 form-control" placeholder="Price for one share.." step="0.0001" required>
+        <input type="number" name="price" class="col-md-3 form-control" min="0" placeholder="Price for one share.." step="0.0001" required>
         </div><br>
         <div class="row">
         <label class="col-md-2">Number of Shares</label>
-        <input type="number" name="shares" class="col-md-3 form-control" required>
+        <input type="number" name="shares" class="col-md-3 form-control" min="0" required>
         <div class="col-md-1"></div>
         <label class="col-md-2">Trade Type</label>
         <select name="trade" class="form-control col-md-3" required>

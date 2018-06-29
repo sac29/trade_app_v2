@@ -6,15 +6,18 @@ class TradesController < ApplicationController
 
   def index
     if session.key?(:user)
-      @my_trades = Trade.where(user_id: session[:user]['id']).order(action_date: :desc)
+      @my_trades = Trade.where(user_id: session[:user]['id']).order(action_date: :desc, updated_at: :desc)
     else
       redirect_to '/'
     end
   end
 
   def public_feed
-    # TODO: add pagination, using skip limit
-    @trades = Trade.all.order(action_date: :desc)
+    from = params.has_key?(:from) && params[:from].to_i > 0 ? params[:from].to_i : 0
+    limit = params.has_key?(:limit) && params[:limit].to_i > 0 ? params[:limit].to_i : 5
+    trade_query = Trade.all
+    @trades = trade_query.order(action_date: :desc, updated_at: :desc).limit(limit).offset(from)
+    @trades_size = trade_query.count
   end
 
   def add
