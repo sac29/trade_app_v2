@@ -16,7 +16,7 @@ class LoginController < ApplicationController
     if user.valid?
       user.save
       session[:user] = user
-      redirect_to '/trades/index'
+      redirect_to '/trades'
     else
       flash[:msg] = "Please Fill Username."
       redirect_to '/'

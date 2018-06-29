@@ -8,15 +8,15 @@
       <ul class="navbar-nav ml-auto">
         <% if current_user.present? %>
         <li class="nav-item">
-          <a class="nav-link" href="/trades/index">Home</a>
+          <a class="nav-link" href="/trades">Home</a>
         </li>
         <% end %>
         <li class="nav-item">
-          <a class="nav-link" href="/trades/public_feed">Public Feed</a>
+          <a class="nav-link" href="/public_feed">Public Feed</a>
         </li>
         <% if current_user.present? %>
           <li class="nav-item">
-            <a class="nav-link" href="../login/logout">Logout</a>
+            <a class="nav-link" href="../logout">Logout</a>
           </li>
         <% else %>
           <li class="nav-item">

@@ -5,7 +5,7 @@
   <h1 class="my-4">Hi,
     <small><%= current_user.username %></small>
   </h1>
-  <form method="post" action="/trades/add">
+  <form method="post" action="/trades">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <div class="card mb-4">
     <h5 class="card-header">Add your trade</h5>

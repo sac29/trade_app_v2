@@ -14,6 +14,6 @@ class CommentsController < ApplicationController
       flash[:msg] = "Write a Comment.."
       flash[:type] = "error"
     end
-    redirect_to '/trades/public_feed'
+    redirect_to '/public_feed'
   end
 end

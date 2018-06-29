@@ -31,7 +31,7 @@
       </div>
       <% if current_user.present? %>
         <div class="card-footer text-muted">
-          <form action="/comments/write" method="post">
+          <form action="/comments" method="post">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             <div class="row">
               <input type="text" name="comment" class="offset-md-1 col-md-9 form-control" placeholder="Write Your Comment...">&nbsp;&nbsp;
@@ -40,7 +40,7 @@
           </form>
         </div>
       <% end %>
-      
+
       <% trade.comments.each do |comment| %>
         <div class="card-footer text-muted border-bottom-0">
           <div class="row">

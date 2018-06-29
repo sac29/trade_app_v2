@@ -15,4 +15,4 @@
 //= require external/sweetalert2.min.js
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
+//= //require turbolinks

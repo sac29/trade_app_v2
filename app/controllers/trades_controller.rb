@@ -34,6 +34,6 @@ class TradesController < ApplicationController
       flash[:msg] = "Stock Price and Number of shares should be greater than zero."
       flash[:type] = "error"
     end
-    redirect_to '/trades/index'
+    redirect_to '/trades'
   end
 end
