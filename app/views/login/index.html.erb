@@ -1,29 +1,29 @@
 
-    <!-- Blog Entries Column -->
-    <div class="col-md-4">
+<%= content_for :title, "Welcome To Trade App" %>
+<!-- Blog Entries Column -->
+<div class="col-md-4">
+</div>
 
-    </div>
+<!-- Sidebar Widgets Column -->
+<div class="col-md-4" style="margin-top: 21%; margin-bottom: 21%;">
 
-    <!-- Sidebar Widgets Column -->
-    <div class="col-md-4" style="margin-top: 21%; margin-bottom: 21%;">
-
-      <!-- Search Widget -->
-      <div class="card my-4">
-        <h5 class="card-header">Login/Sign-up</h5>
-        <div class="card-body">
-          <div class="input-group">
-            <form method="post" action="login/verify">
-              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type="text" class="offset-md-3 form-control" name="username" placeholder="Enter User Name ..">
-            <span class="input-group-btn"><br>
-                  <button class="offset-md-7 btn btn-secondary" type="submit">Go!</button>
-                </span>
-            </form>
-            <% if flash[:msg] %>
-              <span class="text-danger"><%= flash[:msg] %></span>
-            <% end %>
-          </div>
-        </div>
+  <!-- Search Widget -->
+  <div class="card my-4">
+    <h5 class="card-header">Login/Sign-up</h5>
+    <div class="card-body">
+      <div class="input-group">
+        <form method="post" action="login/verify">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <input type="text" class="offset-md-3 form-control" name="username" placeholder="Enter User Name ..">
+        <span class="input-group-btn"><br>
+              <button class="offset-md-7 btn btn-secondary" type="submit">Go!</button>
+            </span>
+        </form>
+        <% if flash[:msg] %>
+          <span class="text-danger"><%= flash[:msg] %></span>
+        <% end %>
       </div>
-
     </div>
+  </div>
+
+</div>

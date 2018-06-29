@@ -1,3 +1,4 @@
+<%= content_for :title, "My Trades" %>
 <% if flash[:type] %>
   <script>
       swal("<%= flash[:title] %>","<%= flash[:msg] %>","<%= flash[:type] %>");
