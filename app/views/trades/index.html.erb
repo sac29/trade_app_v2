@@ -1,9 +1,5 @@
 <%= content_for :title, "My Trades" %>
-<% if flash[:type] %>
-  <script>
-      swal("<%= flash[:title] %>","<%= flash[:msg] %>","<%= flash[:type] %>");
-  </script>
-<% end %>
+<%= content_for :metadata, @metadata %>
 <div class="col-md-12" style="margin-top: 5%;">
 
   <h1 class="my-4">Hi,
@@ -72,7 +68,7 @@
               <td><%= trade.stock_price %></td>
               <td><%= trade.no_of_stocks %></td>
               <td><%= trade.has_share ? 'Bought' : 'Sold' %></td>
-              <td><%= trade.no_of_stocks*trade.stock_price %></td>
+              <td><%= (trade.no_of_stocks*trade.stock_price).round(2) %></td>
             </tr>
             <% end %>
           <% else %>

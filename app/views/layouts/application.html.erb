@@ -1,43 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="">
+
+  <meta name="flashdata" content="<%= @flash_metadata.to_json if @flash_metadata.present? %>">
 
   <title><%= yield(:title) %></title>
 
-  <!-- Bootstrap core CSS -->
-  <!--
-    TODO: use rails asset pipeline to concatenate and serve two js file from local servers
-          one for plugins
-          second for application code
-  -->
-  <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "plugins" %>
+  <%= javascript_include_tag "plugins" %>
 </head>
 
 <body>
-
-<!-- Navigation -->
 <%= render 'layouts/header' %>
 
-<!-- Page Content -->
 <div class="container">
 
   <div class="row">
     <%= yield %>
   </div>
-  <!-- /.row -->
 
 </div>
-<!-- /.container -->
-<!-- Footer -->
-<%= render 'layouts/footer' %>
 
+<%= render 'layouts/footer' %>
+<%= javascript_include_tag "application" %>
 </body>
 
 </html>
