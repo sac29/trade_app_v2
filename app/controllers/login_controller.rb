@@ -1,9 +1,8 @@
 class LoginController < ApplicationController
   protect_from_forgery with: :exception
+  before_action :without_user, except: :logout
+
   def index
-    if session[:user]
-      redirect_to '/trades/index'
-    end
   end
 
   def logout

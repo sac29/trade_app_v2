@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <% if session[:user] %>
+      <% if current_user.present? %>
         <div class="card-footer text-muted">
           <form action="/comments/write" method="post">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
@@ -40,11 +40,12 @@
           </form>
         </div>
       <% end %>
-      <% trade.comments.each do |comments| %>
+      
+      <% trade.comments.each do |comment| %>
         <div class="card-footer text-muted border-bottom-0">
           <div class="row">
-            <h5 class="offset-md-1 col-md-11"><%= comments.user.username %> Commented:</h5><br>
-            <p class="offset-md-1 col-md-11"><%= comments.comment %></p>
+            <h5 class="offset-md-1 col-md-11"><%= comment.user.username %> Commented:</h5><br>
+            <p class="offset-md-1 col-md-11"><%= comment.comment %></p>
           </div>
         </div>
       <% end %>

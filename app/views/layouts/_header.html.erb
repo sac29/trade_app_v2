@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <% if session[:user] %>
+        <% if current_user.present? %>
         <li class="nav-item">
           <a class="nav-link" href="/trades/index">Home</a>
         </li>
@@ -14,7 +14,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/trades/public_feed">Public Feed</a>
         </li>
-        <% if session[:user] %>
+        <% if current_user.present? %>
           <li class="nav-item">
             <a class="nav-link" href="../login/logout">Logout</a>
           </li>
