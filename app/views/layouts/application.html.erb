@@ -6,7 +6,7 @@
   <meta name="description" content="">
 
   <meta name="flashdata" content="<%= @flash_metadata.to_json if @flash_metadata.present? %>">
-
+  <%= csrf_meta_tags %>
   <title><%= yield(:title) %></title>
 
   <%= stylesheet_link_tag "plugins" %>

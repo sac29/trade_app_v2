@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def without_user
     if current_user.present?
-      redirect_to '/trades/index'
+      redirect_to '/trades'
     end
   end
 end

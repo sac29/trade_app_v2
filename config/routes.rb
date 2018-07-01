@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'login' => 'login#verify'
   post 'trades' => 'trades#add'
   post 'comments' => 'comments#write'
+  delete 'comments/:id' => 'comments#destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'login#index'
 end

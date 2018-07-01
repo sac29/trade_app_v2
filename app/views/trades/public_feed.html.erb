@@ -3,17 +3,17 @@
 <div class="col-md-12" style="margin-top: 5%;">
 
   <h1 class="my-4">Public Feed</h1>
-    <div class="col-md-5 offset-md-10" style="display: inline-block">
-      <p style="display: inline-block">No of Posts:&nbsp;</p>
-      <select style="display: inline-block" class="form-control col-md-2 js-tf-page-size" id="page_size">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="500">500</option>
-      </select>
-    </div>
+  <div class="col-md-5 offset-md-10" style="display: inline-block">
+    <p style="display: inline-block">No of Posts:&nbsp;</p>
+    <select style="display: inline-block" class="form-control col-md-2 js-tf-page-size" id="page_size">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+      <option value="500">500</option>
+    </select>
+  </div>
   <% @trades.each do |trade| %>
     <div class="card mb-4">
       <div class="card-body">
@@ -44,21 +44,29 @@
       <% trade.comments.each do |comment| %>
         <div class="card-footer text-muted border-bottom-0">
           <div class="row">
-            <h5 class="offset-md-1 col-md-11"><%= comment.user.username %> Commented:</h5><br>
-            <p class="offset-md-1 col-md-11"><%= comment.comment %></p>
+            <div class="offset-md-1 col-md-9">
+              <h5><%= comment.user.username %> Commented:</h5><br>
+              <p style="margin-top: -15px;"><%= comment.comment %></pstyle>
+            </div>
+            <% if current_user.present? && (current_user.id == comment.user.id || current_user.id == trade.user.id) %>
+              <div class="col-md-1">
+                <%= link_to("", 'comments/'+comment.id.to_s, method: :delete, class: 'fa fa-trash-o', style: 'color:red; font-size:24px;') %>
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>
     </div>
   <% end %>
-  <% params[:limit] = params[:limit].to_i>0 ? params[:limit].to_i : 5 %>
-  <% params[:from] = params[:from].to_i>0 ? params[:from].to_i : 0 %>
+  <% params[:limit] = params[:limit].to_i > 0 ? params[:limit].to_i : 5 %>
+  <% params[:from] = params[:from].to_i > 0 ? params[:from].to_i : 0 %>
   <ul class="pagination justify-content-center mb-4">
-    <li class="page-item <%= 'disabled' if params[:from].to_i-params[:limit].to_i<0 %>">
-      <a class="page-link" href="?from=<%= params[:from].to_i-params[:limit].to_i %>&limit=<%= params.has_key?(:limit) ? params[:limit].to_i : 5 %>">&larr; Previous</a>
+    <li class="page-item <%= 'disabled' if params[:from].to_i - params[:limit].to_i < 0 %>">
+      <a class="page-link" href="?from=<%= params[:from].to_i - params[:limit].to_i %>&limit=<%= params.has_key?(:limit) ? params[:limit].to_i : 5 %>">&larr;
+        Previous</a>
     </li>
-    <li class="page-item <%= 'disabled' if params[:from].to_i+params[:limit].to_i>=@trades_size %>">
-      <a class="page-link" href="?from=<%= params[:from].to_i+params[:limit].to_i %>&limit=<%= params.has_key?(:limit) ? params[:limit].to_i : 5 %>">Next &rarr;</a>
+    <li class="page-item <%= 'disabled' if params[:from].to_i + params[:limit].to_i >= @trades_size %>">
+      <a class="page-link" href="?from=<%= params[:from].to_i + params[:limit].to_i %>&limit=<%= params.has_key?(:limit) ? params[:limit].to_i : 5 %>">Next &rarr;</a>
     </li>
   </ul>
 </div>
