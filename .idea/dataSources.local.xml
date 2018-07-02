@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails trade_app: test" uuid="b99d27d9-9cff-4a5a-b7c9-1e9eadfc26f6">
+      <database-info product="PostgreSQL" version="10.4" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <introspection-schemas>trade_app_test:public</introspection-schemas>
+    </data-source>
+    <data-source name="Rails trade_app: development" uuid="cd13bc8c-17c5-4e7c-bd5d-a52603676f5c">
+      <database-info product="PostgreSQL" version="10.4" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <introspection-schemas>trade_app_dev:public</introspection-schemas>
+    </data-source>
+    <data-source name="Rails trade_app: production" uuid="2a65f1a1-7582-4759-b7f4-7b169dc1242b">
+      <database-info product="PostgreSQL" version="10.4" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <introspection-schemas>trade_app:public</introspection-schemas>
+    </data-source>
+  </component>
+</project>

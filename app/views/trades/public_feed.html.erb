@@ -29,24 +29,26 @@
           </div>
         </div>
         <%=
-          likes = trade.likes.to_a
-          likers_count = likes.count
+          likes_doc = MongoLike.where(trade_id: trade.id).first
+          user_ids = likes_doc.present? ? likes_doc.user_ids : []
+          likers_count = user_ids.count
           likers = []
           self_liked = false
 
-          if current_user.present? && likes.find {|like| like.user_id == current_user.id}.present?
+          if current_user.present? && user_ids.include?(current_user.id)
             self_liked = true
             likers << {
                 name: 'You',
                 id: current_user.id.to_s
             }
-            likes = likes.reject { |h| current_user.id==h.user_id }
+            user_ids = user_ids.reject { |h| current_user.id==h }
           end
 
-          likes.take(3 - likers.size).each do |liker|
+          user_ids.take(3 - likers.size).each do |mongo_liker|
+            liker = User.where(id: mongo_liker).first
             likers << {
-              name: liker.user.username,
-              id: liker.user.id.to_s
+              name: liker.username,
+              id: liker.id.to_s
             }
           end
 
@@ -62,7 +64,7 @@
           comma_string = comma_names.join(", ")
           like_string = [comma_string, and_string].reject(&:blank?).join(", ")
           if like_string!=''
-            like_string += (likers_count > 1 ? ' like this.' : ' likes this.')
+            like_string += ' like this.'
           end
           %>
         <span>

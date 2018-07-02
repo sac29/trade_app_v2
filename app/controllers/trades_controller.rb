@@ -11,7 +11,7 @@ class TradesController < ApplicationController
   def public_feed
     from = params.has_key?(:from) && params[:from].to_i > 0 ? params[:from].to_i : 0
     limit = params.has_key?(:limit) && params[:limit].to_i > 0 ? params[:limit].to_i : 5
-    trade_query = Trade.includes(:comments => :user).includes(:user).includes(:likes => :user).all
+    trade_query = Trade.includes(:comments => :user).includes(:user).all
     @trades = trade_query.order(action_date: :desc, updated_at: :desc).limit(limit).offset(from)
     @trades_size = trade_query.count
   end
