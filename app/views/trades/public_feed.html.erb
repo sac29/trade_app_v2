@@ -28,53 +28,57 @@
             </div>
           </div>
         </div>
-        <%= if current_user.present?
-              you = trade.likes.find_by(user_id: current_user.id).present?
-              like_people = trade.likes.where.not(user_id: [current_user.id])
-            else
-              you = false
-              like_people = trade.likes.all
-            end
-            no_of_likes = like_people.count
-            likes = ''
-            if you && no_of_likes > 2
-              likes += 'You, '
-              likes += like_people[0].user.username
-              likes += ' and '+(no_of_likes-1).to_s+' others like this.'
-            elsif you && no_of_likes == 2
-              likes += 'You, '
-              likes += like_people[0].user.username
-              likes += ' and '+like_people[1].user.username+' like this.'
-            elsif you && no_of_likes == 1
-              likes += 'You, '
-              likes += like_people[0].user.username+' like this.'
-            elsif you && no_of_likes == 0
-              likes = 'You like this.'
-            elsif no_of_likes > 3
-              likes += like_people[0].user.username+', '+like_people[1].user.username+' and '+(no_of_likes-2).to_s+' others like this.'
-            elsif no_of_likes > 2
-              likes += like_people[0].user.username+', '+like_people[1].user.username+' and '+like_people[2].user.username+' like this.'
-            elsif no_of_likes > 1
-              likes += like_people[0].user.username+' and '+like_people[1].user.username+' like this.'
-            elsif no_of_likes > 0
-              likes += like_people[0].user.username+' likes this.'
-            else
-              likes = ''
-            end
+        <%=
+          likes = trade.likes.to_a
+          likers_count = likes.count
+          likers = []
+          self_liked = false
 
-        %>
+          if current_user.present? && likes.find {|like| like.user_id == current_user.id}.present?
+            self_liked = true
+            likers << {
+                name: 'You',
+                id: current_user.id.to_s
+            }
+            likes = likes.reject { |h| current_user.id==h.user_id }
+          end
+
+          likes.take(3 - likers.size).each do |liker|
+            likers << {
+              name: liker.user.username,
+              id: liker.user.id.to_s
+            }
+          end
+
+          if likers_count > 3
+            names = likers.first(2).map {|liker| liker[:name]} + ["#{likers_count - 2} others"]
+          else
+            names = likers.map {|liker| liker[:name]}
+          end
+
+          and_names = names[-2..-1].to_a
+          comma_names = names - and_names
+          and_string = and_names.join(" and ")
+          comma_string = comma_names.join(", ")
+          like_string = [comma_string, and_string].reject(&:blank?).join(", ")
+          if like_string!=''
+            like_string += (likers_count > 1 ? ' like this.' : ' likes this.')
+          end
+          %>
         <span>
         </span>
       </div>
+      <% params[:limit] = params[:limit].to_i > 0 ? params[:limit].to_i : 5 %>
+      <% params[:from] = params[:from].to_i > 0 ? params[:from].to_i : 0 %>
       <% if current_user.present? %>
         <div class="card-footer text-muted">
           <form action="/comments" method="post">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             <div class="row">
-              <% if you %>
-                <%= link_to("", 'like/'+trade.id.to_s, method: :delete, class: 'fa fa-thumbs-o-up col-md-1', style: 'color:blue; font-size:24px; margin-left: 20px; margin-top: 10px; ') %>
+              <% if self_liked %>
+                <%= link_to("", 'like/'+trade.id.to_s+'/'+params[:from].to_s+'/'+params[:limit].to_s, method: :delete, class: 'fa fa-thumbs-o-up col-md-1', style: 'color:blue; font-size:24px; margin-left: 20px; margin-top: 10px; ') %>
               <% else %>
-                <%= link_to("", 'like/'+trade.id.to_s, method: :post, class: 'fa fa-thumbs-o-up col-md-1', style: 'color:black; font-size:24px; margin-left: 20px; margin-top: 10px; ') %>
+                <%= link_to("", 'like/'+trade.id.to_s+'/'+params[:from].to_s+'/'+params[:limit].to_s, method: :post, class: 'fa fa-thumbs-o-up col-md-1', style: 'color:black; font-size:24px; margin-left: 20px; margin-top: 10px; ') %>
               <% end %>
               <input type="text" name="comment" class="col-md-9 form-control" placeholder="Write Your Comment...">&nbsp;&nbsp;
               <button type="submit" name="post" class="col-md-1 form-control btn-primary" value="<%= trade.id %>">write</button>
@@ -88,7 +92,7 @@
           <div class="row">
             <div class="offset-md-1 col-md-9">
               <h5><%= comment.user.username %> Commented:</h5><br>
-              <p style="margin-top: -15px;"><%= comment.comment %></pstyle>
+              <p style="margin-top: -15px;"><%= comment.comment %></p>
             </div>
             <% if current_user.present? && (current_user.id == comment.user.id || current_user.id == trade.user.id) %>
               <div class="col-md-1">
@@ -100,8 +104,6 @@
       <% end %>
     </div>
   <% end %>
-  <% params[:limit] = params[:limit].to_i > 0 ? params[:limit].to_i : 5 %>
-  <% params[:from] = params[:from].to_i > 0 ? params[:from].to_i : 0 %>
   <ul class="pagination justify-content-center mb-4">
     <li class="page-item <%= 'disabled' if params[:from].to_i - params[:limit].to_i < 0 %>">
       <a class="page-link" href="?from=<%= params[:from].to_i - params[:limit].to_i %>&limit=<%= params.has_key?(:limit) ? params[:limit].to_i : 5 %>">&larr;

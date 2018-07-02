@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   post 'login' => 'login#verify'
   post 'trades' => 'trades#add'
   post 'comments' => 'comments#write'
-  post 'like/:id' => 'like#add'
+  post 'like/:id/:from/:limit' => 'like#add'
   delete 'comments/:id' => 'comments#destroy'
-  delete 'like/:id' => 'like#destroy'
+  delete 'like/:id/:from/:limit' => 'like#destroy'
   root 'login#index'
 end

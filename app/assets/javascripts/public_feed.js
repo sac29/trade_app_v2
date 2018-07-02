@@ -15,9 +15,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        console.log("Content loaded");
         $('.js-tf-page-size').on("change", function(event) {
-            console.log("Content loaded");
             change_page_size(event);
         });
     });
